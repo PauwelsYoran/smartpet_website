@@ -6,8 +6,8 @@ class DbClass:
 
         self.__dsn = {
             "host": "localhost",
-            "user": "yoran",
-            "passwd": "7ukrJg@m",
+            "user": "user",
+            "passwd": "pass",
             "db": "smartpet"
         }
 
