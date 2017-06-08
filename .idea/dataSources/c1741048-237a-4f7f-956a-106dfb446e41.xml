@@ -202,10 +202,11 @@ unit_id</ColNames>
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="54" parent="13" name="weight">
       <Position>2</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>decimal(10,2)|0</DataType>
     </column>
     <index id="55" parent="13" name="fk_max_portionsize_unit1_idx">
       <ColNames>unit_ID</ColNames>

@@ -18,7 +18,18 @@
         <div class="data">
             {{ reservoir[0]  }}{{ reservoir[1] }} <br>
         </div>
+    <form action="/manualFeed" method="Post">
+            <div>
+                <label for="portionsize">portionsize</label>
+                <input type="number" name="portionsize"  class="data_settings3">
+                <select name="unit" id="unit" class="data_settings2">
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                </select>
+            </div>
 
+                <input type="submit" value="change info" class="submit_buttton" >
+        </form>
     </div>
 
 {% endblock %}

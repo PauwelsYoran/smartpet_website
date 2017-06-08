@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import time
 
 app = Flask(__name__)
 
@@ -21,6 +22,34 @@ def Home():
     food_reservoir = food_reservoir[-1]
     print(food_reservoir)
 
+    return render_template('index.html',eaten=food_eaten,naam=naam, reservoir = food_reservoir)
+
+@app.route('/manualFeed' ,methods=['GET','POST'])
+def manualFeed():
+    from DbClass import DbClass
+    from a4988 import a4988
+    db = DbClass()
+    mot=a4988()
+    food_eaten = db.getFood_eaten()
+    food_eaten= food_eaten[-1]
+
+    naam= db.getDog_info()
+    naam=naam[-1]
+
+    food_reservoir = db.getFood_reservoir()
+    food_reservoir = food_reservoir[-1]
+
+    portion = request.form["portionsize"]
+    unit = request.form["unit"]
+    if unit=='g':
+        turn=int(int(portion)/20)
+    else:
+        turn=int((int(portion)*1000)/20)
+
+
+    for i in range(0,turn):
+        mot.turn_motor()
+    print(portion)
     return render_template('index.html',eaten=food_eaten,naam=naam, reservoir = food_reservoir)
 
 @app.route('/settings')
@@ -110,12 +139,14 @@ def addPortion():
     from DbClass import DbClass
     db = DbClass()
     portion = request.form["portion"]
+    print(portion)
     unit = request.form["unit"]
     if unit == 'kg':
         unit=2
     else:
         unit=1
-    db.setDataToMax_portionSize(int(portion),int(unit))
+        print(float(portion))
+    db.setDataToMax_portionSize(float(portion),int(unit))
 
     dog_info = db.getDog_info()
     dog_info = dog_info[-1]
