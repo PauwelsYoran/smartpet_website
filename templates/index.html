@@ -1,0 +1,24 @@
+{% extends 'base_html.html' %}
+
+{% block title %}
+    home
+{% endblock %}
+
+{% block home %}
+    class="active"
+{% endblock %}
+
+{% block body %}
+    <div class="space_nav">
+    <h1 class="h1_home">{{ naam[0] }} has eaten </h1>
+        <div class="data">
+            {{ eaten[0]  }}{{ eaten[1] }} <br>
+        </div>
+    <h1 class="h1_home"> food in reservoir: </h1>
+        <div class="data">
+            {{ reservoir[0]  }}{{ reservoir[1] }} <br>
+        </div>
+
+    </div>
+
+{% endblock %}
