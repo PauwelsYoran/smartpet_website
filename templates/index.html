@@ -12,15 +12,17 @@
     <div class="space_nav">
     <h1 class="h1_home">{{ naam[0] }} has eaten </h1>
         <div class="data">
-            {{ eaten[0]  }}{{ eaten[1] }} <br>
+            {{ eaten[0]  }} {{ eaten[1] }} <br>
         </div>
     <h1 class="h1_home"> food in reservoir: </h1>
         <div class="data">
             {{ reservoir[0]  }}{{ reservoir[1] }} <br>
         </div>
-    <form action="/manualFeed" method="Post">
+    <form action="/manualFeed" method="Post" >
+            <div class="form_home">
+                <label for="portionsize" > enter a portion </label> <br>
+            </div>
             <div>
-                <label for="portionsize">portionsize</label>
                 <input type="number" name="portionsize"  class="data_settings3">
                 <select name="unit" id="unit" class="data_settings2">
                     <option value="g">g</option>
@@ -28,7 +30,7 @@
                 </select>
             </div>
 
-                <input type="submit" value="change info" class="submit_buttton" >
+                <input type="submit" value="feed me" class="submit_buttton" >
         </form>
     </div>
 

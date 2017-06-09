@@ -123,7 +123,7 @@ portieanalyse_ID</ColNames>
     </column>
     <column id="38" parent="11" name="portionsize">
       <Position>2</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>decimal(10,2)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="39" parent="11" name="unit_id">
@@ -208,82 +208,101 @@ unit_id</ColNames>
       <Position>2</Position>
       <DataType>decimal(10,2)|0</DataType>
     </column>
-    <index id="55" parent="13" name="fk_max_portionsize_unit1_idx">
+    <column id="55" parent="13" name="timestamp">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="56" parent="13" name="fk_max_portionsize_unit1_idx">
       <ColNames>unit_ID</ColNames>
     </index>
-    <key id="56" parent="13" name="PRIMARY">
+    <key id="57" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="57" parent="13" name="fk_max_portionsize_unit1">
+    <foreign-key id="58" parent="13" name="fk_max_portionsize_unit1">
       <ColNames>unit_ID</ColNames>
       <RefSchemaName>smartpet</RefSchemaName>
       <RefTableName>unit</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="58" parent="14" name="ID">
+    <column id="59" parent="14" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="59" parent="14" name="portionsize">
+    <column id="60" parent="14" name="portionsize">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="60" parent="14" name="unit_id">
+    <column id="61" parent="14" name="unit_id">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="61" parent="14" name="fk_portieanalyse_unit1_idx">
+    <index id="62" parent="14" name="fk_portieanalyse_unit1_idx">
       <ColNames>unit_id</ColNames>
     </index>
-    <key id="62" parent="14" name="PRIMARY">
+    <key id="63" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID
 unit_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="63" parent="14" name="fk_portieanalyse_unit1">
+    <foreign-key id="64" parent="14" name="fk_portieanalyse_unit1">
       <ColNames>unit_id</ColNames>
       <RefSchemaName>smartpet</RefSchemaName>
       <RefTableName>unit</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="64" parent="15" name="weight">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="65" parent="15" name="unit_ID">
-      <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <key id="66" parent="15" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>unit_ID</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="67" parent="15" name="fk_resting_portionsize_unit1">
-      <ColNames>unit_ID</ColNames>
-      <RefSchemaName>smartpet</RefSchemaName>
-      <RefTableName>unit</RefTableName>
-      <RefColNames>ID</RefColNames>
-    </foreign-key>
-    <column id="68" parent="16" name="ID">
+    <column id="65" parent="15" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="69" parent="16" name="unit">
+    <column id="66" parent="15" name="weight">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="67" parent="15" name="unit_ID">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="68" parent="15" name="timestamp">
+      <Position>4</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <index id="69" parent="15" name="resting_portionsize_unit_ID_fk">
+      <ColNames>unit_ID</ColNames>
+    </index>
+    <key id="70" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="71" parent="15" name="resting_portionsize_unit_ID_fk">
+      <ColNames>unit_ID</ColNames>
+      <RefSchemaName>smartpet</RefSchemaName>
+      <RefTableName>unit</RefTableName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="72" parent="16" name="ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="73" parent="16" name="unit">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <key id="70" parent="16" name="PRIMARY">
+    <key id="74" parent="16" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>

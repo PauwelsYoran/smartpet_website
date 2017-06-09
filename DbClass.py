@@ -82,7 +82,7 @@ class DbClass:
     def getFood_eaten(self):
         self.__cursor = self.__connection.cursor()
         # Query zonder parameters
-        sqlQuery = "SELECT portionsize,u.unit FROM food_eaten JOIN unit as u on u.ID= food_eaten.unit_id"
+        sqlQuery = "SELECT portionsize,u.unit FROM food_eaten JOIN unit as u on u.ID= food_eaten.unit_id WHERE DATE(food_eaten.timestamp)= DATE(NOW())"
 
         self.__cursor.execute(sqlQuery)
         result = self.__cursor.fetchall()
@@ -102,7 +102,7 @@ class DbClass:
     def getMax_portionsize(self):
         self.__cursor = self.__connection.cursor()
         # Query zonder parameters
-        sqlQuery = "SELECT weight,u.unit FROM max_portionsize JOIN unit as u on u.ID= max_portionsize.unit_ID"
+        sqlQuery = "SELECT weight,u.unit FROM max_portionsize JOIN unit as u on u.ID= max_portionsize.unit_ID order by timestamp"
 
         self.__cursor.execute(sqlQuery)
         result = self.__cursor.fetchall()
@@ -112,11 +112,12 @@ class DbClass:
     def getResting_portionsize(self):
         self.__cursor = self.__connection.cursor()
         # Query zonder parameters
-        sqlQuery = "SELECT * FROM resting_portionsize"
+        sqlQuery = "SELECT weight FROM resting_portionsize  ORDER BY timestamp"
 
         self.__cursor.execute(sqlQuery)
         result = self.__cursor.fetchall()
-        self.__cursor.clo
+        self.__cursor.close()
+        return result
 
     def setDataToDog_info(self, name,weight,unit,age,birthday):
         self.__cursor = self.__connection.cursor()
@@ -186,11 +187,11 @@ class DbClass:
         self.__connection.commit()
         self.__cursor.close()
 
+
+
 db=DbClass()
+print(db.getFood_eaten())
 
-
-
-db.setDataToMax_portionSize(500,1)
 
 
 

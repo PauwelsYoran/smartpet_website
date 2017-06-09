@@ -11,7 +11,20 @@ def Home():
     from DbClass import DbClass
     db = DbClass()
     food_eaten = db.getFood_eaten()
-    food_eaten= food_eaten[-1]
+    food_size=0
+    for value in food_eaten:
+        if value[1] =='kg':
+            weight = float(value[0] *1000)
+        else:
+            weight=float(value[0])
+        food_size=weight+food_size
+        print(food_size)
+
+    if food_size > 1000:
+        food_size=float(food_size/1000)
+        food_eaten = [food_size,'kg']
+    else:
+        food_eaten = [food_size, 'g']
 
     naam= db.getDog_info()
     naam=naam[-1]
@@ -28,10 +41,11 @@ def Home():
 def manualFeed():
     from DbClass import DbClass
     from a4988 import a4988
+    from HX711 import HX711
     db = DbClass()
     mot=a4988()
-    food_eaten = db.getFood_eaten()
-    food_eaten= food_eaten[-1]
+    hx=HX711(21,20)
+
 
     naam= db.getDog_info()
     naam=naam[-1]
@@ -39,17 +53,75 @@ def manualFeed():
     food_reservoir = db.getFood_reservoir()
     food_reservoir = food_reservoir[-1]
 
+    rest_portionsize = db.getResting_portionsize()
+    rest_portionsize = rest_portionsize[-1]
+    rest_portionsize=rest_portionsize[0]
+
     portion = request.form["portionsize"]
     unit = request.form["unit"]
+
     if unit=='g':
         turn=int(int(portion)/20)
     else:
         turn=int((int(portion)*1000)/20)
+        portion = int(portion)*1000
+
+    if int(portion) < int(rest_portionsize):
+
+        hx.set_reading_format("LSB", "MSB")
+        hx.set_reference_unit(2167)
+        hx.reset()
+        hx.tare()
 
 
-    for i in range(0,turn):
-        mot.turn_motor()
-    print(portion)
+        for i in range(0,turn):
+            mot.turn_motor()
+
+        list_weight=[]
+        for i in range(0,10):
+            val = max(0, int(hx.get_weight(5)))
+            print(val)
+            hx.power_down()
+            hx.power_up()
+            list_weight.append(int(val))
+            time.sleep(0.5)
+
+
+        weight=sorted(list_weight)
+        portion_weight= int(weight[-1])
+
+        if portion_weight > 1000 :
+            portion_Data= float(portion_weight/1000)
+            db.setDataToFood_eaten(portion_Data,2,0)
+        else:
+            db.setDataToFood_eaten(portion_weight,1,0)
+
+        rest_portionsize = rest_portionsize - portion_weight
+        print(rest_portionsize)
+
+        if rest_portionsize < 0 :
+            rest_portionsize = 0
+        else:
+            rest_portionsize = rest_portionsize
+
+        db.setDataToResting_portionsize(rest_portionsize,1)
+
+    food_eaten = db.getFood_eaten()
+    food_size = 0
+    for value in food_eaten:
+        if value[1] == 'kg':
+            weight = float(value[0] * 1000)
+        else:
+            weight = float(value[0])
+        food_size = weight + food_size
+        print(food_size)
+
+    if food_size > 1000:
+        food_size = float(food_size / 1000)
+        food_eaten = [food_size, 'kg']
+    else:
+        food_eaten = [food_size, 'g']
+
     return render_template('index.html',eaten=food_eaten,naam=naam, reservoir = food_reservoir)
 
 @app.route('/settings')
