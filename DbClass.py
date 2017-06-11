@@ -6,8 +6,8 @@ class DbClass:
 
         self.__dsn = {
             "host": "localhost",
-            "user": "user",
-            "passwd": "pass",
+            "user": "us",
+            "passwd": "pas",
             "db": "smartpet"
         }
 
@@ -92,7 +92,7 @@ class DbClass:
     def getFood_reservoir(self):
         self.__cursor = self.__connection.cursor()
         # Query zonder parameters
-        sqlQuery = "SELECT weight, u.unit FROM food_reservoir join unit as u on u.ID = food_reservoir.unit_id"
+        sqlQuery = "SELECT weight, u.unit FROM food_reservoir join unit as u on u.ID = food_reservoir.unit_id ORDER by timestamp"
 
         self.__cursor.execute(sqlQuery)
         result = self.__cursor.fetchall()
